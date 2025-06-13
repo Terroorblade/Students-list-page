@@ -20,9 +20,10 @@
       border-right: 2px solid #ccc;
     }
 
-    h2{
-        text-align:center;
+    h2 {
+      text-align: center;
     }
+
     textarea {
       width: 100%;
       min-height: 150px;
@@ -34,8 +35,15 @@
       resize: none;
       overflow: hidden;
     }
-    #print {
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
       margin-top: 10px;
+    }
+
+    input[type="button"] {
       padding: 10px 20px;
       font-size: 16px;
       background-color: #6828a7;
@@ -43,21 +51,15 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      margin-left: 250px;
     }
 
-    #print:hover {
+    input[type="button"]:hover {
       background-color: #772597;
     }
 
-    ul#people {
-      list-style-type: none;
-      padding-left: 20px;
+    #outputText {
       font-size: 18px;
-    }
-
-    ul#people li {
-      margin-bottom: 8px;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -65,7 +67,10 @@
   <div class="left">
     <h2>В поле вставьте список из "Распечатать учеников"</h2>
     <textarea id="inputText" placeholder="Вставьте сюда текст с учениками..."></textarea>
-    <input type="button" id="print" value="Ура, список!" />
+    <div class="buttons">
+      <input type="button" id="print" value="Ура, список!" />
+      <input type="button" id="clear" value="Очистить" />
+    </div>
   </div>
 
   <div class="right">
@@ -73,10 +78,10 @@
     <textarea id="outputText" readonly></textarea>
   </div>
 
-   <script>
+  <script>
     function autoResizeTextarea(textarea) {
-      textarea.style.height = 'auto'; 
-      textarea.style.height = textarea.scrollHeight + 'px'; 
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
     }
 
     document.getElementById("print").addEventListener("click", function () {
@@ -93,9 +98,9 @@
         );
 
       if (lines.length > 0) {
-        lines.shift();
+        lines.shift(); // Удаление первой строки
       }
-      
+
       const finalText =
         "Список ребят, которые еще не подключились к уроку:\n" +
         lines.join('\n') +
@@ -105,6 +110,13 @@
       output.value = finalText;
 
       autoResizeTextarea(output);
+    });
+
+    // Обработчик кнопки очистки
+    document.getElementById("clear").addEventListener("click", function () {
+      const inputField = document.getElementById("inputText");
+      inputField.value = "";
+      inputField.style.height = "auto";
     });
   </script>
 </body>
