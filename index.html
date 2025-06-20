@@ -79,6 +79,7 @@
   </div>
 
   <script>
+    
     function autoResizeTextarea(textarea) {
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';
@@ -100,6 +101,7 @@
       if (lines.length > 0) {
         lines.shift(); // Удаление первой строки
       }
+      lines.sort();
 
       const finalText =
         "Список ребят, которые еще не подключились к уроку:\n" +
